@@ -10,3 +10,14 @@ class HomePageTest(TestCase):
         page = resolve('/')
         self.assertEqual(page.func, home_page)
 
+    def test_home_page_redirects_to_user_account(self):
+        user_name = 'Test User'
+        response = self.client.post(
+                '/',
+                data = {'user_name': 'Test User'}
+        )
+        self.assertRedirects(
+                reponse, 
+                '/users/%s/' % user_name.replace(' ', '-').lower()
+        )
+

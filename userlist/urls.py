@@ -20,4 +20,5 @@ from lists import views
 
 urlpatterns = [
     url(r'^$', views.home_page, name="home_page"),
+    url(r'^users/(?P<name>.+?)/', views.user_list, name="user_list"),
 ]
