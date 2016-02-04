@@ -1,0 +1,11 @@
+{% extends 'lists/base.html' %}
+
+{% block heading %} Build your To-Do list {% endblock %}
+
+{% block body %} 
+    <form method="POST" action="/">
+        <input id="user_name_input" name="user_name" placeholder="What's your name?" class="form-control input-lg" />
+        {% csrf_token %}
+    </form>
+
+{% endblock body %}

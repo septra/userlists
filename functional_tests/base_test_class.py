@@ -11,6 +11,3 @@ class FunctionalTest(LiveServerTestCase):
 
     def tearDown(self):
         self.browser.quit()
-
-    def test_sample(self):
-        self.assertEqual(2, 2)
