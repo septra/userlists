@@ -1,13 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.utils.text import slugify
+from django.shortcuts import get_object_or_404
 from models import User, Item
 
 # Create your views here.
 def home_page(request):
     if request.method == 'POST':
-        user_name = request.POST['user_name'].replace(' ', '-').lower()
+        user_name = slugify(request.POST['user_name'])
         return redirect('/users/%s/' % user_name)
     return render(request, 'lists/home.html')
+
 
 def list_view(request, user_name):
 

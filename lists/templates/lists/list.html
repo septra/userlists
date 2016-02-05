@@ -1,13 +1,13 @@
 {% extends 'lists/base.html' %}
 
-{% block heading %} To-Do {% endblock %}
+{% block heading %} <a href="/">To-Do</a> {% endblock %}
 
 {% block body %}
 
-<h2>{{ user.name }}</h2>
+<h2 style="text-align:left;">{{ user.name }}</h2>
 
 <form action="/users/{{ user.user_name }}/new" method="post">
-    <input class="form-control input-lg" id="list_item_input" name="item_input" placeholder="Enter Item">
+    <input class="form-control input-lg" id="list_item_input" name="item_input" placeholder="Add Item">
     {% csrf_token %}
 </form>
 
