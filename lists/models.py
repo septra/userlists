@@ -9,7 +9,6 @@ import datetime
 class User(models.Model):
     name = models.CharField(max_length=100)
     user_name = models.CharField(max_length=100, unique=True)
-    #joined = models.DateField(_("Date"), default=datetime.date.today)
 
     def __str__(self):
         return self.name
@@ -21,7 +20,6 @@ class User(models.Model):
 class Item(models.Model):
     user = models.ForeignKey(User)
     text = models.CharField(max_length=100)
-    #priority = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s : %s" % (self.user.name, self.text)

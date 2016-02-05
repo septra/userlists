@@ -13,7 +13,6 @@ def home_page(request):
 
 
 def list_view(request, user_name):
-
     user = User.objects.get_or_create(
                 user_name = user_name,
                 name= " ".join(map(str.capitalize, str(user_name).split('-')))
