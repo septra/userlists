@@ -13,7 +13,7 @@
 
 <table id="item_list" class="table">
     {% for item in user.item_set.all %}
-        <tr><td>{{ forloop.counter }} </td><td style="text-align:left;">{{ item.text }}</td></tr>
+        <tr><td>{{ forloop.counter }}. </td><td style="text-align:left;">{{ item.text }}</td></tr>
     {% endfor %}
 </table>
 

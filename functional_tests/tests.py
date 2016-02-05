@@ -24,6 +24,7 @@ class FunctionalTest(LiveServerTestCase):
     # Tempted, he types in his name and finds himself at his new account
     # created specially for him.
     def test_user_prompt_on_front_page(self):
+        self.browser.get(self.live_server_url)
         inputbox = self.browser.find_element_by_id('user_name_input')
         self.assertEqual(
                 inputbox.get_attribute('placeholder'),
@@ -39,22 +40,28 @@ class FunctionalTest(LiveServerTestCase):
         )
 
         self.assertIn(
-                'sauron-the-dark',
+                'Sauron The Dark',
                 self.browser.find_element_by_tag_name('body').text
         )
 
     # Delighted with this new effective tool to organize his thoughts,
     # Sauron gets to work and starts listing his plans for middle earth.
     def test_user_can_input_list_items(self):
-        inputbox = browser.find_element_by_id('list_item_input')
-        inputbox.send_keys('Need to find my ring\n')
-        inputbox.send_keys('Attack Helms Deep')
+        self.browser.get(self.live_server_url)
+        inputbox = self.browser.find_element_by_id('user_name_input')
+        inputbox.send_keys('Sauron the Dark\n')
 
-        self.assertInHTML(
-            '1. Attack Helms Deep',
-            self.browser.find_element_by_tag_name('table')
+        listinput = self.browser.find_element_by_id('list_item_input')
+        listinput.send_keys('Need to find my ring\n')
+        listinput = self.browser.find_element_by_id('list_item_input')
+        listinput.send_keys('Attack Helms Deep\n')
+
+        self.assertIn(
+            '1. Need to find my ring',
+            self.browser.find_element_by_tag_name('table').text
         )
 
-        self.assertInHTML(
-            '2. Need to find my ring'
+        self.assertIn(
+            '2. Attack Helms Deep',
+            self.browser.find_element_by_tag_name('table').text
         )
