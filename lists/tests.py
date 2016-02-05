@@ -17,7 +17,6 @@ class HomePageTest(TestCase):
                 data = {'user_name': 'Test User'}
         )
         self.assertRedirects(
-                reponse, 
+                response,
                 '/users/%s/' % user_name.replace(' ', '-').lower()
         )
-

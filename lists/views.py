@@ -1,12 +1,27 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from models import User, Item
 
 # Create your views here.
 def home_page(request):
     if request.method == 'POST':
-        return redirect('/users/%s/' % request.POST['user_name'].replace(' ', '-').lower())
+        user_name = request.POST['user_name'].replace(' ', '-').lower()
+        return redirect('/users/%s/' % user_name)
     return render(request, 'lists/home.html')
 
-def user_list(request, name):
-    context = {'user':name}
+def list_view(request, user_name):
+
+    user = User.objects.get_or_create(
+                user_name = user_name,
+                name= " ".join(map(str.capitalize, str(user_name).split('-')))
+    )[0]
+
+    if request.method == 'POST':
+        item = Item.objects.create(text=request.POST['item_input'], user=user)
+        return redirect('/users/%s/' % user.user_name)
+
+    list_items = Item.objects.filter(user=user)
+    context = {
+                'user':user
+    }
     return render(request, 'lists/list.html', context)

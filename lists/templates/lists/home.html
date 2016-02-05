@@ -2,9 +2,9 @@
 
 {% block heading %} Build your To-Do list {% endblock %}
 
-{% block body %} 
+{% block body %}
     <form method="POST" action="/">
-        <input id="user_name_input" name="user_name" placeholder="What's your name?" class="form-control input-lg" />
+        <input class="form-control input-lg" id="user_name_input" name="user_name" placeholder="What's your name?" />
         {% csrf_token %}
     </form>
 
