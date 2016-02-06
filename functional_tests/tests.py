@@ -89,3 +89,6 @@ class FunctionalTest(LiveServerTestCase):
 
         self.assertIn('required', self.browser.find_element_by_class_name('errorlist').text)
         self.assertEqual(self.browser.current_url, listview_url)
+
+    def test_implement_user_authentication(self):
+        self.fail()
