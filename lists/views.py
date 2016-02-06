@@ -3,13 +3,18 @@ from django.http import HttpResponse
 from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
 from models import User, Item
+from .forms import UserForm
 
 # Create your views here.
 def home_page(request):
     if request.method == 'POST':
-        user_name = slugify(request.POST['user_name'])
-        return redirect('/users/%s/' % user_name)
-    return render(request, 'lists/home.html')
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user_name = slugify(form.cleaned_data['name'])
+            return redirect('/users/%s/' % user_name)
+    else:
+        form = UserForm()
+    return render(request, 'lists/home.html', {'form':form})
 
 
 def list_view(request, user_name):
