@@ -15,7 +15,7 @@ class HomeViewTest(TestCase):
         user_name = 'Test User'
         response = self.client.post(
                 '/',
-                data = {'user_name': 'Test User'}
+                data = {'name': 'Test User'}
         )
         self.assertRedirects(
                 response,
