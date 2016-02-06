@@ -20,5 +20,8 @@ from lists import views
 
 urlpatterns = [
     url(r'^$', views.home_page, name="home_page"),
-    url(r'^users/(?P<user_name>.+?)/', views.list_view, name="list_view"),
+    url(r'^signup$', views.signup, name="list_signup"),
+    url(r'^login$', views.login_view, name="list_login"),
+    url(r'^logout$', views.logout_view, name="list_logout"),
+    url(r'^(?P<user_name>.+?)/$', views.list_view, name="list_view"),
 ]

@@ -2,28 +2,29 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.text import slugify
-import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-class User(models.Model):
-    name = models.CharField(max_length=100)
-    user_name = models.CharField(max_length=100, unique=True)
+class UserProfile(models.Model):
 
-    def __str__(self):
-        return self.name
+    user = models.OneToOneField(User)
+    dob = models.DateField(null=False)
+
     def __unicode__(self):
-        return self.name
-    def __repr__(self):
-        return self.name
+        return """
+                Username: {userName}
+                First Name: {firstName}
+                Last Name: {lastName}
+                """.format(
+                    userName = self.user.username,
+                    firstName = self.user.first_name,
+                    lastName = self.user.last_name
+                )
 
 class Item(models.Model):
-    user = models.ForeignKey(User)
+    userprofile = models.ForeignKey(UserProfile)
     text = models.CharField(max_length=100)
 
-    def __str__(self):
-        return "%s : %s" % (self.user.name, self.text)
     def __unicode__(self):
-        return "%s : %s" % (self.user.name, self.text)
-    def __repr__(self):
-        return "%s : %s" % (self.user.name, self.text)
+        return "%s : %s" % (self.user.userName, self.text)

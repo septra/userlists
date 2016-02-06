@@ -3,9 +3,13 @@
 {% block heading %} To-Do {% endblock %}
 
 {% block body %}
-    <form method="POST" action="/">
-        {{ form }}
-        {% csrf_token %}
-    </form>
 
+    <div>
+        <span>
+            <h4>
+                <a href="/login">Login</a>
+                <a href="/signup">Signup</a>
+            </h4>
+        </span>
+    </div>
 {% endblock body %}

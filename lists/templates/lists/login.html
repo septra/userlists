@@ -1,0 +1,14 @@
+{% extends 'lists/base.html' %}
+
+{% block heading %} Login {% endblock %}
+
+{% block body %}
+
+  <form action="/login" id="login_form" method="post">
+    {% csrf_token %}
+    Username: <input type="text" name="username" />
+    Password: <input type="password" name="password" />
+    <input type="submit" value="submit" />
+  </form>
+
+{% endblock %}

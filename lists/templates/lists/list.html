@@ -4,9 +4,10 @@
 
 {% block body %}
 
-<h2 style="text-align:left;">{{ user.name }}</h2>
+<h2 style="text-align:left;">{{ user.user.first_name }} {{ user.user.last_name }}</h2>
+<a href="/logout">Logout</a>
 
-<form action="{% url 'list_view' user.user_name %}" method="post">
+<form action="/{{ user.user.username }}/" method="post">
     {{ form }}
     {% csrf_token %}
 </form>
