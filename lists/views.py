@@ -31,8 +31,8 @@ def list_view(request, user_name):
     else:
         form = ItemForm()
         list_items = Item.objects.filter(user=user)
-        context = {
-                    'user':user,
-                    'form':form
-        }
+    context = {
+                'user':user,
+                'form':form
+    }
     return render(request, 'lists/list.html', context)

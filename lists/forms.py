@@ -9,7 +9,7 @@ class UserForm(forms.Form):
             attrs={
                 'class': 'form-control input-lg',
                 'placeholder': 'Your name'
-            })
+            }),
     )
 
 

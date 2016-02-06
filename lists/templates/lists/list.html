@@ -6,7 +6,7 @@
 
 <h2 style="text-align:left;">{{ user.name }}</h2>
 
-<form action="/users/{{ user.user_name }}/new" method="post">
+<form action="/users/{{ user.user_name }}/" method="post">
     {{ form }}
     {% csrf_token %}
 </form>
