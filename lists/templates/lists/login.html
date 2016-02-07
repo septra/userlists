@@ -4,11 +4,22 @@
 
 {% block body %}
 
-  <form action="/login" id="login_form" method="post">
-    {% csrf_token %}
-    Username: <input type="text" name="username" />
-    Password: <input type="password" name="password" />
-    <input type="submit" value="submit" />
-  </form>
+    {% if messages %}
+        {% for message in messages %}
+        <div> {{ message|safe }} </div>
+        {% endfor %}
+        <hr />
+    {% endif %}
+
+          <form action="/login" id="login_form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control input-lg" type="text" name="username" placeholder="Username" autofocus="true" />
+            </div>
+            <div class="form-group">
+                <input class="form-control input-lg" type="password" name="password" placeholder="Password" />
+            </div>
+            <input class="btn btn-primary btn-block" type="submit" value="Login" />
+          </form>
 
 {% endblock %}

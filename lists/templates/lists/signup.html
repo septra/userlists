@@ -8,14 +8,21 @@
     <strong> Thank you for registering! </strong>
     <a href="/"> Home Page </a>
   {% else %}
-    <h4> Register Now </h4>
-    <form id="user_form" method="post" action="/signup">
-      {% csrf_token %}
+        <form id="user_form" method="post" action="/signup">
+          {% csrf_token %}
 
-      {{ user_form.as_p }}
-      {{ profile_form.as_table }}
-      <input type="submit" name="submit" value="Register" />
-    </form>
+          {% for field in user_form %}
+
+                <div class="form-group">
+                    {{ field }}
+                </div>
+
+          {% endfor %}
+          <div class="form-group">
+          {{ profile_form.as_p }}
+          </div>
+          <input class="btn btn-primary btn-block" type="submit" name="submit" value="Register" />
+        </form>
   {% endif %}
 
 {% endblock %}

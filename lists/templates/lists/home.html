@@ -7,8 +7,17 @@
     <div>
         <span>
             <h4>
-                <a href="/login">Login</a>
-                <a href="/signup">Signup</a>
+                {% if user.is_authenticated %}
+                    <div class="row" style="font-size:1.5em;">
+                        <div class="col-md-6"><a href="/{{ user.username }}">My List</a></div>
+                        <div class="col-md-6 pull-right"><a href="/logout">Logout</a></div>
+                    </div>
+                {% else %}
+                    <div class="row" style="font-size:1.5em;">
+                        <div class="col-md-6"><a href="/login">Login</a></div>
+                        <div class="col-md-6 pull-right"><a href="/signup">Signup</a></div>
+                    </div>
+                {% endif %}
             </h4>
         </span>
     </div>

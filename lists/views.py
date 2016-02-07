@@ -4,10 +4,15 @@ from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.views.generic import TemplateView
 from models import UserProfile, Item
 from .forms import UserForm, ItemForm, UserProfileForm
 
 # Create your views here.
+class HomeView(TemplateView):
+    template_name = "lists/home.html"
+
 def home_page(request):
     return render(request, 'lists/home.html')
 
@@ -45,18 +50,25 @@ def signup(request):
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
+        try:
+            UserProfile.objects.get(user__username = username)
+        except:
+            messages.error(
+                    request, 
+                    'Please <a href="/signup">register</a> to login'
+            )
+            return redirect('/login')
         password = request.POST.get('password')
-        print "Entered login POST method"
         user = authenticate(username=username, password=password)
         if user:
-            print "User Found!", user
             if user.is_active:
                 login(request, user)
+                messages.success(request, "You've been successfully logged in!")
                 return redirect('/%s/' % username)
             else:
                 return HttpResponse('Your account is not active')
         else:
-            print "User not found! Redirecting."
+            messages.error(request, "Incorrect login details")
             return redirect('/login')
     else:
         return render(request, 'lists/login.html')
@@ -70,6 +82,9 @@ def logout_view(request):
 
 @login_required
 def list_view(request, user_name):
+
+    if request.user.username != user_name:
+        return redirect('/')
 
     user = get_object_or_404(UserProfile, user__username=user_name)
 

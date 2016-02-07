@@ -1,21 +1,36 @@
 {% extends 'lists/base.html' %}
 
+
+
 {% block heading %} <a href="/">To-Do</a> {% endblock %}
+
 
 {% block body %}
 
-<h2 style="text-align:left;">{{ user.user.first_name }} {{ user.user.last_name }}</h2>
-<a href="/logout">Logout</a>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<div class="row" style="font-size:1.5em;">
+    <div class="col-md-6">{{ user.user.first_name }} {{ user.user.last_name }}</div>
+    <div class="col-md-6 pull-right"><a href="/logout">Logout</a></div>
+</div>
+
+<br>
+
+
 
 <form action="/{{ user.user.username }}/" method="post">
     {{ form }}
     {% csrf_token %}
 </form>
-
-<table id="item_list" class="table">
+<br>
+<ul class="list-group">
     {% for item in user.item_set.all %}
-        <tr><td>{{ forloop.counter }}. </td><td style="text-align:left;">{{ item.text }}</td></tr>
+        <li class="list-group-item" style="text-align:center"><span class="badge pull-left">{{ forloop.counter }}</span> {{ item.text }}</li>
     {% endfor %}
-</table>
+</ul>
 
 {% endblock %}

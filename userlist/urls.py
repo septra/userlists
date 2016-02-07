@@ -19,7 +19,8 @@ from django.contrib import admin
 from lists import views
 
 urlpatterns = [
-    url(r'^$', views.home_page, name="home_page"),
+    url(r'^$', views.HomeView.as_view()),
+    #url(r'^$', views.home_page, name="home_page"),
     url(r'^signup$', views.signup, name="list_signup"),
     url(r'^login$', views.login_view, name="list_login"),
     url(r'^logout$', views.logout_view, name="list_logout"),
