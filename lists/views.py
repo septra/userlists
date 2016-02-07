@@ -101,6 +101,7 @@ def list_view(request, user_name):
 
     context = {
                 'user':user,
+                'list_items': list_items,
                 'form':form
     }
     return render(request, 'lists/list.html', context)

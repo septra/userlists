@@ -28,7 +28,7 @@
 </form>
 <br>
 <ul class="list-group">
-    {% for item in user.item_set.all %}
+    {% for item in list_items %}
         <li class="list-group-item" style="text-align:center"><span class="badge pull-left">{{ forloop.counter }}</span> {{ item.text }}</li>
     {% endfor %}
 </ul>
