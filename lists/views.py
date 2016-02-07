@@ -97,6 +97,7 @@ def list_view(request, user_name):
             list_items = cache.get(user)
         else:
             list_items = Item.objects.filter(userprofile=user)
+            cache.set(user, list_items)
 
     context = {
                 'user':user,
