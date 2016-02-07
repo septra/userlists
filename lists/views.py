@@ -13,12 +13,7 @@ from .forms import UserForm, ItemForm, UserProfileForm
 class HomeView(TemplateView):
     template_name = "lists/home.html"
 
-def home_page(request):
-    return render(request, 'lists/home.html')
-
 def signup(request):
-    registered = False
-
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
@@ -32,7 +27,6 @@ def signup(request):
             profile.user = user
             profile.save()
 
-            registered = True
             return redirect('/')
         else:
             print user_form.errors, profile_form.errors
@@ -54,7 +48,7 @@ def login_view(request):
             UserProfile.objects.get(user__username = username)
         except:
             messages.error(
-                    request, 
+                    request,
                     'Please <a href="/signup">register</a> to login'
             )
             return redirect('/login')
