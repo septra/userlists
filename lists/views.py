@@ -9,6 +9,8 @@ from django.views.generic import TemplateView
 from models import UserProfile, Item
 from .forms import UserForm, ItemForm, UserProfileForm
 
+from django.core.cache import cache
+
 # Create your views here.
 class HomeView(TemplateView):
     template_name = "lists/home.html"
@@ -86,10 +88,15 @@ def list_view(request, user_name):
         form = ItemForm(request.POST)
         if form.is_valid():
             Item.objects.create(text=form.cleaned_data['item'], userprofile=user)
+            items = Item.objects.filter(userprofile=user)
+            cache.set(user, items)
             return redirect('/%s' % user_name)
     else:
         form = ItemForm()
-        list_items = Item.objects.filter(userprofile=user)
+        if cache.get(user):
+            list_items = cache.get(user)
+        else:
+            list_items = Item.objects.filter(userprofile=user)
 
     context = {
                 'user':user,

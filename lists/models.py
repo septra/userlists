@@ -27,4 +27,4 @@ class Item(models.Model):
     text = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return "%s : %s" % (self.user.userName, self.text)
+        return "%s : %s" % (self.userprofile.user, self.text)
